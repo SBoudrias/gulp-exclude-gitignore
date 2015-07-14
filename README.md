@@ -1,8 +1,8 @@
 # gulp-exclude-gitignore [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 
-Ever find yourself in a situation where you want to run a gulp plugin against every JavaScript files in your project? You do so, but then it start throwing at all your `node_modules`?
+Ever find yourself in a situation where you want to run a gulp plugin against every JavaScript file in your project? You do so, but then it start throwing at all your `node_modules`?
 
-The usual fix is to add negative glob patterns to your `gulp.src()` call. Doesn't this feel verbose and tidious? There is a better way! You already have this list inside your `.gitignore` file, let's just use it.
+The usual fix is to add negative glob patterns to your `gulp.src()` call. Doesn't this feel verbose and tedious? There is a better way! You already have this list inside your `.gitignore` file, let's just use it.
 
 ## Install
 
