@@ -1,32 +1,32 @@
 'use strict';
 var path = require('path');
 var gulp = require('gulp');
+var eslint = require('gulp-eslint');
+var excludeGitignore = require('.');
 var mocha = require('gulp-mocha');
-var jshint = require('gulp-jshint');
-var jscs = require('gulp-jscs');
 var istanbul = require('gulp-istanbul');
-var coveralls = require('gulp-coveralls');
+var nsp = require('gulp-nsp');
 var plumber = require('gulp-plumber');
-var excludeGitignore = require('./lib'); // Dog fooding!
-
-var handleErr = function (err) {
-  console.log(err.message);
-  process.exit(1);
-};
+var coveralls = require('gulp-coveralls');
 
 gulp.task('static', function () {
   return gulp.src('**/*.js')
     .pipe(excludeGitignore())
-    .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(jshint.reporter('fail'))
-    .pipe(jscs())
-    .on('error', handleErr);
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+});
+
+gulp.task('nsp', function (cb) {
+  nsp({package: path.resolve('package.json')}, cb);
 });
 
 gulp.task('pre-test', function () {
   return gulp.src('lib/**/*.js')
-    .pipe(istanbul({includeUntested: true}))
+    .pipe(excludeGitignore())
+    .pipe(istanbul({
+      includeUntested: true
+    }))
     .pipe(istanbul.hookRequire());
 });
 
@@ -45,6 +45,10 @@ gulp.task('test', ['pre-test'], function (cb) {
     });
 });
 
+gulp.task('watch', function () {
+  gulp.watch(['lib/**/*.js', 'test/**'], ['test']);
+});
+
 gulp.task('coveralls', ['test'], function () {
   if (!process.env.CI) {
     return;
@@ -54,4 +58,5 @@ gulp.task('coveralls', ['test'], function () {
     .pipe(coveralls());
 });
 
+gulp.task('prepublish', ['nsp']);
 gulp.task('default', ['static', 'test', 'coveralls']);

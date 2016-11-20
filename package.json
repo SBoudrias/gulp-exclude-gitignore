@@ -2,7 +2,6 @@
   "name": "gulp-exclude-gitignore",
   "version": "1.0.0",
   "description": "Gulp plugin to exclude file contained in .gitignore from the stream",
-  "repository": "SBoudrias/gulp-exclude-gitignore",
   "author": {
     "name": "Simon Boudrias",
     "email": "admin@simonboudrias.com",
@@ -20,23 +19,31 @@
     "exclude",
     "stream"
   ],
+  "repository": "SBoudrias/gulp-exclude-gitignore",
   "dependencies": {
     "gulp-ignore": "^2.0.2"
   },
   "devDependencies": {
-    "gulp": "^3.6.0",
+    "gulp": "^3.9.0",
     "gulp-coveralls": "^0.1.0",
-    "gulp-istanbul": "^1.1.1",
-    "gulp-jscs": "^4.0.0",
-    "gulp-jshint": "^2.0.4",
+    "gulp-istanbul": "^1.0.0",
     "gulp-mocha": "^3.0.1",
     "gulp-plumber": "^1.0.0",
-    "jshint": "^2.9.4",
-    "jshint-stylish": "^2.2.1",
-    "sinon": "^1.15.4"
+    "sinon": "^1.15.4",
+    "eslint": "^3.1.1",
+    "eslint-config-xo-space": "^0.15.0",
+    "gulp-eslint": "^3.0.1",
+    "gulp-nsp": "^2.1.0"
   },
   "scripts": {
-    "test": "gulp"
+    "test": "gulp",
+    "prepublish": "gulp prepublish"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "eslintConfig": {
+    "extends": "xo-space",
+    "env": {
+      "mocha": true
+    }
+  }
 }
