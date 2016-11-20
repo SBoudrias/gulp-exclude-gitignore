@@ -2,7 +2,6 @@
   "name": "gulp-exclude-gitignore",
   "version": "1.0.0",
   "description": "Gulp plugin to exclude file contained in .gitignore from the stream",
-  "homepage": "",
   "repository": "SBoudrias/gulp-exclude-gitignore",
   "author": {
     "name": "Simon Boudrias",
@@ -22,7 +21,6 @@
     "stream"
   ],
   "dependencies": {
-    "flatten": "1.0.2",
     "gulp-ignore": "^2.0.2"
   },
   "devDependencies": {
@@ -33,6 +31,7 @@
     "gulp-jshint": "^2.0.4",
     "gulp-mocha": "^3.0.1",
     "gulp-plumber": "^1.0.0",
+    "jshint": "^2.9.4",
     "jshint-stylish": "^2.2.1",
     "sinon": "^1.15.4"
   },

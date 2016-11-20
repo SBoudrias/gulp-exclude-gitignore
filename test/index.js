@@ -3,15 +3,11 @@ var assert = require('assert');
 var fs = require('fs');
 var path = require('path');
 var sinon = require('sinon');
-var excludeGitignore = require('../lib');
-
-var fullpath = function (filepath) {
-  return path.join(process.cwd(), filepath);
-};
+var excludeGitignore = require('..');
 
 var fakeFile = function (filepath) {
   return {
-    path: fullpath(filepath),
+    relative: filepath,
     contents: new Buffer('whatever')
   };
 };
@@ -28,8 +24,8 @@ describe('gulp-exclude-gitignore', function () {
       'b.txt'
     ].join('\n');
 
-    this.stub.withArgs(fullpath('.gitignore'), 'utf8').returns(contents);
-    this.stub.withArgs('custom.gitignore', 'utf8').returns('bar\n');
+    this.stub.withArgs(path.resolve('.gitignore'), 'utf8').returns(contents);
+    this.stub.withArgs(path.resolve('custom.gitignore'), 'utf8').returns('bar\n');
   });
 
   afterEach(function () {
@@ -41,15 +37,15 @@ describe('gulp-exclude-gitignore', function () {
 
     var filePaths = [];
     stream.on('data', function (file) {
-      filePaths.push(file.path);
+      filePaths.push(file.relative);
     });
 
     stream.on('finish', function () {
       assert.deepEqual(filePaths, [
-        fullpath('a.txt'),
-        fullpath('foo'),
-        fullpath('c.txt'),
-        fullpath('c.txt/d.txt')
+        'a.txt',
+        'foo',
+        'c.txt',
+        'c.txt/d.txt'
       ]);
       done();
     });
@@ -69,13 +65,13 @@ describe('gulp-exclude-gitignore', function () {
 
     var filePaths = [];
     stream.on('data', function (file) {
-      filePaths.push(file.path);
+      filePaths.push(file.relative);
     });
 
     stream.on('finish', function () {
       assert.deepEqual(filePaths, [
-        fullpath('a.txt'),
-        fullpath('b.txt')
+        'a.txt',
+        'b.txt'
       ]);
       done();
     });
