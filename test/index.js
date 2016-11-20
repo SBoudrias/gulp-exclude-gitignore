@@ -26,6 +26,7 @@ describe('gulp-exclude-gitignore', function () {
 
     this.stub.withArgs(path.resolve('.gitignore'), 'utf8').returns(contents);
     this.stub.withArgs(path.resolve('custom.gitignore'), 'utf8').returns('bar\n');
+    this.stub.withArgs(path.resolve('sub/.gitignore'), 'utf8').returns('a.txt\n');
   });
 
   afterEach(function () {
@@ -79,6 +80,24 @@ describe('gulp-exclude-gitignore', function () {
     stream.write(fakeFile('a.txt'));
     stream.write(fakeFile('b.txt'));
     stream.write(fakeFile('bar/c.txt'));
+    stream.end();
+  });
+
+  it('correctly account for nested .gitignore', function (done) {
+    var stream = excludeGitignore('sub/.gitignore');
+
+    var filePaths = [];
+    stream.on('data', function (file) {
+      filePaths.push(file.relative);
+    });
+
+    stream.on('finish', function () {
+      assert.deepEqual(filePaths, ['a.txt']);
+      done();
+    });
+
+    stream.write(fakeFile('a.txt'));
+    stream.write(fakeFile('sub/a.txt'));
     stream.end();
   });
 });
