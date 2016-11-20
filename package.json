@@ -1,6 +1,6 @@
 {
   "name": "gulp-exclude-gitignore",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Gulp plugin to exclude file contained in .gitignore from the stream",
   "author": {
     "name": "Simon Boudrias",
