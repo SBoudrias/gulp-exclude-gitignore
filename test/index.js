@@ -62,7 +62,7 @@ describe('gulp-exclude-gitignore', function () {
   });
 
   it('excludes dot files contained in .gitignore', function (done) {
-    var stream = excludeGitignore({dot: true});
+    var stream = excludeGitignore();
 
     var filePaths = [];
     stream.on('data', function (file) {
