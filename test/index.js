@@ -61,6 +61,32 @@ describe('gulp-exclude-gitignore', function () {
     stream.end();
   });
 
+  it('excludes dot files contained in .gitignore', function (done) {
+    var stream = excludeGitignore({dot: true});
+
+    var filePaths = [];
+    stream.on('data', function (file) {
+      filePaths.push(file.relative);
+    });
+
+    stream.on('finish', function () {
+      assert.deepEqual(filePaths, [
+        '.a.txt',
+        'baz/.e.txt',
+        'baz/f.txt'
+      ]);
+      done();
+    });
+
+    stream.write(fakeFile('.a.txt'));
+    stream.write(fakeFile('b.txt'));
+    stream.write(fakeFile('foo/.c.txt'));
+    stream.write(fakeFile('foo/d.txt'));
+    stream.write(fakeFile('baz/.e.txt'));
+    stream.write(fakeFile('baz/f.txt'));
+    stream.end();
+  });
+
   it('excludes files contained in the provided file', function (done) {
     var stream = excludeGitignore('custom.gitignore');
 
