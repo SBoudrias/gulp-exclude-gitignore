@@ -29,7 +29,7 @@
     "gulp-istanbul": "^1.0.0",
     "gulp-mocha": "^3.0.1",
     "gulp-plumber": "^1.0.0",
-    "sinon": "^2.0.0",
+    "sinon": "^3.0.0",
     "eslint": "^3.1.1",
     "eslint-config-xo-space": "^0.16.0",
     "gulp-eslint": "^3.0.1",
