@@ -21,6 +21,14 @@ gulp.src('**/*.js')
   .pipe(jshint());
 ```
 
+## API
+
+### excludeGitignore(gitignorePath)
+
+#### `gitignorePath` String
+
+If this option is present, it gives the path to the git ignore file. By default this option is set to `.gitignore`.
+
 
 ## License
 
