@@ -21,7 +21,7 @@
   ],
   "repository": "SBoudrias/gulp-exclude-gitignore",
   "dependencies": {
-    "gulp-ignore": "^2.0.2"
+    "gulp-ignore": "^3.0.0"
   },
   "devDependencies": {
     "eslint": "^4.9.0",
